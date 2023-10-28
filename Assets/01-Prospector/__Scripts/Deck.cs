@@ -19,7 +19,7 @@ public class Deck : MonoBehaviour {
 	public Sprite cardFront;
 	public Sprite cardFrontGold;
 
-	public bool startFaceUp = true;
+	public bool startFaceUp = false;
 	
 	
 	// Prefabs
