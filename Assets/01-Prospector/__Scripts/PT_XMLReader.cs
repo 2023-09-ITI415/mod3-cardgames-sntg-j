@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 
 /*
@@ -17,7 +18,7 @@ XMLHashtable xml;
 xml["jeremy"][0]["friend"][0].text
 xml["jeremy"][0].att("age");
 */
-		
+
 
 
 [System.Serializable]
@@ -60,8 +61,9 @@ public class PT_XMLReader {
 	// This function parses a single tag and calls Parse() if it encounters subtags
 	string ParseTag(string eS, PT_XMLHashtable eH) {
 		// search for "<"
+        Console.WriteLine(eS + "has been parsed :)");
 		int ndx = eS.IndexOf("<");
-		int end, end1, end2, end3;
+        int end, end1, end2, end3;
 		if (ndx == -1) {
 			// It's possible that this is just a string (e.g. <someTagTheStringIsInside>string</someTagTheStringIsInside>)
 			end3 = eS.IndexOf(">"); // This closes a standard tag; look for the closing tag
@@ -150,7 +152,6 @@ public class PT_XMLReader {
 			//thisHash[att] = val; // All attributes have to be unique, so this should be okay.
 			thisHash.attSet(att, val);
 		}
-		
 		
 		// Pull the subs, which is everything contained by this tag but exclusing the tags on either side (e.g. <tag att="hi">.....subs.....</tag>)
 		string subs = "";
