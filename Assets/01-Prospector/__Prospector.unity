@@ -772,8 +772,8 @@ GameObject:
   - component: {fileID: 827460509}
   - component: {fileID: 827460515}
   - component: {fileID: 827460514}
-  - component: {fileID: 827460516}
   - component: {fileID: 827460517}
+  - component: {fileID: 827460518}
   m_Layer: 0
   m_Name: _MainCamera
   m_TagString: MainCamera
@@ -948,66 +948,14 @@ MonoBehaviour:
   gameOverText: {fileID: 0}
   roundResultText: {fileID: 0}
   highScoreText: {fileID: 0}
-  deck: {fileID: 0}
   layout: {fileID: 0}
+  deck: {fileID: 0}
   drawPile: []
   layoutAnchor: {fileID: 0}
   target: {fileID: 0}
   tableau: []
   discardPile: []
   fsRun: {fileID: 0}
---- !u!114 &827460516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827460508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca0244438c949534ba0ea1363b538ff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xmlr:
-    xmlText: 
-  multiplier: {x: 0, y: 0}
-  slotDefs:
-  - x: 0
-    y: 0
-    faceUp: 0
-    layerName: 
-    layerID: 0
-    id: 0
-    hiddenBy: 
-    type: 
-    stagger: {x: 0, y: 0}
-  drawPile:
-    x: 0
-    y: 0
-    faceUp: 0
-    layerName: Default
-    layerID: 0
-    id: 0
-    hiddenBy: 
-    type: slot
-    stagger: {x: 0, y: 0}
-  discardPile:
-    x: 0
-    y: 0
-    faceUp: 0
-    layerName: Default
-    layerID: 0
-    id: 0
-    hiddenBy: 
-    type: slot
-    stagger: {x: 0, y: 0}
-  sortingLayerNames:
-  - Row0
-  - Row1
-  - Row2
-  - Row3
-  - Discard
-  - Draw
 --- !u!114 &827460517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1023,6 +971,49 @@ MonoBehaviour:
   chain: 0
   scoreRun: 0
   score: 0
+--- !u!114 &827460518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827460508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c4b4d6a0da5d045891c28126998071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xmlr:
+    xmlText: 
+  multiplier: {x: 0, y: 0}
+  slotDefs: []
+  drawPile:
+    x: 0
+    y: 0
+    faceUp: 1
+    layerName: Default
+    layerID: 0
+    id: 0
+    hiddenBy: 
+    type: slot
+    stagger: {x: 0, y: 0}
+  discardPile:
+    x: 0
+    y: 0
+    faceUp: 1
+    layerName: Default
+    layerID: 0
+    id: 0
+    hiddenBy: 
+    type: slot
+    stagger: {x: 0, y: 0}
+  sortingLayerNames:
+  - Row0
+  - Row1
+  - Row2
+  - Row3
+  - Discard
+  - Draw
 --- !u!1 &870903718
 GameObject:
   m_ObjectHideFlags: 0
