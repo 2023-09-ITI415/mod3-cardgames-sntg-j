@@ -17,34 +17,34 @@
 	<slot id="2" x="3"  y="4.5" layer="0" />
 	
 	<!-- Layer1, the next level. -->
-	<slot id="3" x="5.5" y="4.5" layer="1" />
-	<slot id="4" x="8" y="4.5" layer="1" />
-	<slot id="5" x="-2" y="2" layer="1" />
-	<slot id="6" x="0.5"  y="2" layer="1" />
-	<slot id="7" x="3"  y="2" layer="1" />
-	<slot id="8" x="5.5"  y="2" layer="1" />
+	<slot id="3" x="5.5" y="4.5" layer="0" />
+	<slot id="4" x="8" y="4.5" layer="0" />
+	<slot id="5" x="-2" y="2" layer="0" />
+	<slot id="6" x="0.5"  y="2" layer="0" />
+	<slot id="7" x="3"  y="2" layer="0" />
+	<slot id="8" x="5.5"  y="2" layer="0" />
 	
 	
 	<!-- Layer2, the next level. -->
-	<slot id="9"  x="8" y="2" layer="2" />
-	<slot id="10" x="-2" y="-0.5" layer="2" />
-	<slot id="11" x="0.5" y="-0.5" layer="2" />
-	<slot id="12" x="3" y="-0.5" layer="2" />
-	<slot id="13" x="5.5"  y="-0.5" layer="2" />
-	<slot id="14" x="8"  y="-0.5" layer="2" />
-	<slot id="15" x="-2"  y="-3" layer="2" />
-	<slot id="16" x="0.5"  y="-3" layer="2" />
-	<slot id="17" x="3"  y="-3" layer="2" />
+	<slot id="9"  x="8" y="2" layer="0" />
+	<slot id="10" x="-2" y="-0.5" layer="0" />
+	<slot id="11" x="0.5" y="-0.5" layer="0" />
+	<slot id="12" x="3" y="-0.5" layer="0" />
+	<slot id="13" x="5.5"  y="-0.5" layer="0" />
+	<slot id="14" x="8"  y="-0.5" layer="0" />
+	<slot id="15" x="-2"  y="-3" layer="0" />
+	<slot id="16" x="0.5"  y="-3" layer="0" />
+	<slot id="17" x="3"  y="-3" layer="0" />
 	
 	
 	<!-- Layer3, the top level. -->
-	<slot id="18" x="5.5" y="-3" layer="3" />
-	<slot id="19" x="8" y="-3" layer="3" />
-	<slot id="20" x="-2" y="-5.5" layer="3" />
-	<slot id="21" x="0.5" y="-5.5" layer="3" />
-	<slot id="22" x="3" y="-5.5" layer="3" />
-	<slot id="23" x="5.5"  y="-5.5" layer="3" />
-	<slot id="24" x="8"  y="-5.5" layer="3" />
+	<slot id="18" x="5.5" y="-3" layer="0" />
+	<slot id="19" x="8" y="-3" layer="0" />
+	<slot id="20" x="-2" y="-5.5" layer="0" />
+	<slot id="21" x="0.5" y="-5.5" layer="0" />
+	<slot id="22" x="3" y="-5.5" layer="0" />
+	<slot id="23" x="5.5"  y="-5.5" layer="0" />
+	<slot id="24" x="8"  y="-5.5" layer="0" />
 
 	
 	<!-- This positions the draw pile and staggers it -->

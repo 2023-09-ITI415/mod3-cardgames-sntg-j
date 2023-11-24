@@ -27,6 +27,7 @@ public class Deck_Proto: MonoBehaviour
     // Prefabs
     public GameObject prefabSprite;
     public GameObject prefabCard;
+    public GameObject prefabHolder;
 
     [Header("Set Dynamically")]
 
@@ -34,6 +35,7 @@ public class Deck_Proto: MonoBehaviour
     // add from p 569
     public List<string> cardNames;
     public List<Card> cards;
+    public List<Card> holders;
     public List<Decorator> decorators;
     public List<CardDefinition> cardDefs;
     public Transform deckAnchor;
@@ -63,6 +65,7 @@ public class Deck_Proto: MonoBehaviour
 
         ReadDeck(deckXMLText);
         MakeCards();
+        MakeHolders();
     }
 
 
@@ -153,6 +156,23 @@ public class Deck_Proto: MonoBehaviour
     }//GetCardDefinitionByRank
 
 
+    public void MakeHolders()
+    {
+        holders = new List<Card>();
+
+        for (int i = 0; i < 25; i++)
+        {
+            GameObject cgo = Instantiate(prefabCard) as GameObject;
+            cgo.transform.parent = deckAnchor;
+            Card card = cgo.GetComponent<Card>();
+            card.rank = (int)'h';
+
+            cgo.transform.localPosition = new Vector3(i % 13 * 3, i / 13 * 4, 0);
+
+
+            holders.Add(card);
+        }
+    }
 
     /// <summary>
     /// This is the first edition version of MakeCards - ot does ALL THE WORK
@@ -185,6 +205,7 @@ public class Deck_Proto: MonoBehaviour
         //
         //  This is effectively the MakeCard function
         //
+
         for (int i = 0; i < cardNames.Count; i++)
         {
             GameObject cgo = Instantiate(prefabCard) as GameObject;

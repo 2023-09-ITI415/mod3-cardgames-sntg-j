@@ -23,17 +23,19 @@ public class Prototype: MonoBehaviour
     public Vector2 fsPosEnd = new Vector2(0.5f, 0.95f);
     public float reloadDelay = 2f;
     public TextMeshProUGUI gameOverText, roundResultText, highScoreText;
-    public CardProspector holder;
+    public CardProspector prefabholder;
 
     [Header("Set Dynamically")]
-    public Deck deck;
+    public Deck_Proto deck;
     public Layout_Proto layout;
     public List<CardProspector> drawPile;
+    public List<CardProspector> holderGrid;
     public Transform layoutAnchor;
     public CardProspector target;
     public List<CardProspector> tableau;
     public List<CardProspector> discardPile;
     public FloatingScore fsRun;
+    private string [,] table;
 
 
     void Awake()
@@ -71,17 +73,19 @@ public class Prototype: MonoBehaviour
     {
         gameOverText.gameObject.SetActive(show);
         roundResultText.gameObject.SetActive(show);
+        table = new string[6, 6];
     }
 
     void Start()
     {
         /*Scoreboard.S.score = ScoreManager.SCORE;*/
-        deck = GetComponent<Deck>();
+        deck = GetComponent<Deck_Proto>();
         deck.InitDeck(deckXML.text);
         Deck_Proto.Shuffle(ref deck.cards);
         layout = GetComponent<Layout_Proto>();
         layout.ReadLayout(layoutXML.text);
         drawPile = ConvertListCardsToListCardProspector(deck.cards);
+        holderGrid = ConvertListCardsToListCardProspector(deck.holders);
         LayoutGame();
     }
     List<CardProspector> ConvertListCardsToListCardProspector(List<Card> lCD)
@@ -98,10 +102,16 @@ public class Prototype: MonoBehaviour
 
     CardProspector Draw()
     {
-        CardProspector cd = Instantiate<CardProspector>(holder);
+        CardProspector cd = drawPile[0];
+        drawPile.RemoveAt(0);
         return (cd);
     }
-
+    CardProspector Set()
+    {
+        CardProspector cd = holderGrid[0];
+        holderGrid.RemoveAt(0);
+        return (cd);
+    }
 
     void LayoutGame()
     {
@@ -115,9 +125,8 @@ public class Prototype: MonoBehaviour
         CardProspector cp;
 
         foreach (SlotDef tSD in layout.slotDefs)
-        {
-            cp = Draw();
-            cp.faceUp = tSD.faceUp;
+        {/* for each of the slots in the layout */
+            cp = Set(); /* call on the draw function to create a */
             cp.transform.parent = layoutAnchor;
 
             cp.transform.localPosition = new Vector3(
@@ -133,14 +142,6 @@ public class Prototype: MonoBehaviour
             tableau.Add(cp);
         }
 
-        foreach (CardProspector tCP in tableau)
-        {
-            foreach (int hid in tCP.slotDef.hiddenBy)
-            {
-                cp = FindCardByLayoutID(hid);
-                tCP.hiddenBy.Add(cp);
-            }
-        }
         MoveToTarget(Draw());
         UpdateDrawPile();
     }
@@ -240,29 +241,23 @@ public class Prototype: MonoBehaviour
             case eCardState.target:
                 break;
             case eCardState.drawpile:
-                MoveToDiscard(target);
-                MoveToTarget(Draw());
-                UpdateDrawPile();
-                ScoreManager.EVENT(eScoreEvent.draw);
-                FloatingScoreHandler(eScoreEvent.draw);
                 break;
             case eCardState.tableau:
-                bool validMatch = true;
-                if (!cd.faceUp)
-                {
-                    validMatch = false;
+                if (cd.rank.Equals((int)'h'))
+                {   /*
+                        The idea here is to first remove the clicked card from the tableau array
+                        then update the drawpile to to show the next card while the position of the
+                        leading card is placed on the clicked position.
+                     */
+                    tableau.Remove(cd);
+                    CardProspector nCard = target;
+                    MoveToTarget(Draw());
+                    nCard.transform.localPosition = cd.transform.localPosition;
+                    MoveToDiscard(cd);
+                    tableau.Add(nCard);
+                    holderGrid.Remove(cd);
+                    /*Destroy(cd);*/
                 }
-                if (!AdjacentRank(cd, target))
-                {
-                    validMatch = false;
-                }
-                if (!validMatch) return;
-
-                tableau.Remove(cd);
-                MoveToTarget(cd);
-                SetTableauFaces();
-                ScoreManager.EVENT(eScoreEvent.mine);
-                FloatingScoreHandler(eScoreEvent.mine);
                 break;
         }
         CheckForGameOver();

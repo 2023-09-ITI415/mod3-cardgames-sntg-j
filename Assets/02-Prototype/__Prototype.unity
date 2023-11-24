@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 761158903}
   - component: {fileID: 761158905}
   - component: {fileID: 761158906}
+  - component: {fileID: 761158908}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -286,7 +287,6 @@ MonoBehaviour:
   gameOverText: {fileID: 0}
   roundResultText: {fileID: 0}
   highScoreText: {fileID: 0}
-  holder: {fileID: 100000, guid: a1a27a714eea1e541a552e95a56aef19, type: 3}
   deck: {fileID: 0}
   layout: {fileID: 0}
   drawPile: []
@@ -449,6 +449,67 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &761158908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761158899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d009903c29d049d4db24349816d0da4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  suitClub: {fileID: 21300000, guid: 36c72cf508602c348956f4c395581a28, type: 3}
+  suitDiamond: {fileID: 21300000, guid: 1b5bd7324b505a54ebbc5fa6b5aaf63e, type: 3}
+  suitHeart: {fileID: 21300000, guid: 77efa010489147942b48f6b26d36e18a, type: 3}
+  suitSpade: {fileID: 21300000, guid: 6ef8b1598a2804e44869b430d57bae2e, type: 3}
+  faceSprites:
+  - {fileID: 21300000, guid: 0044ad2d99ea04858a663c3491cc9a91, type: 3}
+  - {fileID: 21300000, guid: 1b117bad312e24b2791cbc7dd2ea6d87, type: 3}
+  - {fileID: 21300000, guid: 21570ac654411438d8f6cc233ffb28e4, type: 3}
+  - {fileID: 21300000, guid: 21a6739a4135346e6956ca54075d8c25, type: 3}
+  - {fileID: 21300000, guid: 4ec6a5b1f47934636a6280e5abb475f8, type: 3}
+  - {fileID: 21300000, guid: 6f1efb7f571f948dfa995e521af3100a, type: 3}
+  - {fileID: 21300000, guid: a61ea2d4e7838406b97649cd8a3f3f34, type: 3}
+  - {fileID: 21300000, guid: c10418368653749f796f63e87cde78ec, type: 3}
+  - {fileID: 21300000, guid: c6955b0be0ed8469d8907eb75524a9d8, type: 3}
+  - {fileID: 21300000, guid: d86c46d6378144162964786d621fb0ca, type: 3}
+  - {fileID: 21300000, guid: ee100e0d0a1c04759a5a7537cf5e8752, type: 3}
+  - {fileID: 21300000, guid: ef50d4f09a2b3425fbbdb8ad5f8957b0, type: 3}
+  rankSprites:
+  - {fileID: 21300002, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300004, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300006, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300008, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300010, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300012, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300014, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300016, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300018, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300020, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300022, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300024, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300026, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300028, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300030, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  - {fileID: 21300032, guid: 2dfecd81624d33c46b0d60d1f7ed1772, type: 3}
+  cardBack: {fileID: 21300000, guid: a8185ed8d47594bb8a3b8e2d9233f769, type: 3}
+  cardBackGold: {fileID: 21300000, guid: 8ecf4828943064b3a96f6258b54c0f11, type: 3}
+  cardFront: {fileID: 21300000, guid: 873a7658b7ec742228520c7b15510f4d, type: 3}
+  cardFrontGold: {fileID: 21300000, guid: 944dc539459fe4109b973bd4c97f68ee, type: 3}
+  startFaceUp: 1
+  prefabSprite: {fileID: 100000, guid: e7cb14d12439d404daf0f478529a0c7a, type: 3}
+  prefabCard: {fileID: 100000, guid: fefa61d9d89756a4bb43fd821f4cbd2c, type: 3}
+  prefabholder: {fileID: 0}
+  xmlr:
+    xmlText: 
+  cardNames: []
+  cards: []
+  decorators: []
+  cardDefs: []
+  deckAnchor: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
