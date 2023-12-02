@@ -24,10 +24,10 @@ public class Prospector : MonoBehaviour
     public Vector2 fsPosEnd = new Vector2(0.5f, 0.95f);
     public float reloadDelay = 2f;
     public TextMeshProUGUI gameOverText, roundResultText, highScoreText;
-    public Layout layout;
 
     [Header("Set Dynamically")]
     public Deck deck;
+    public Layout layout;
     public List<CardProspector> drawPile;
     public Transform layoutAnchor;
     public CardProspector target;

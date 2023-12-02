@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Proto;
-public enum eCardState
+public enum eCardStatus
 {
     drawpile,
     tableau,
@@ -11,20 +11,20 @@ public enum eCardState
 }
 public class CardProspector2 : Card
 {
-    [Header("Set Dynamically: CardProspector")]
+    [Header("Set Dynamically: CardProspector2")]
 
-    public eCardState state = eCardState.drawpile;
+    public eCardStatus state = eCardStatus.drawpile;
 
     public List<CardProspector2> hiddenBy = new List<CardProspector2>();
 
     public int layoutID;
 
-    public SlotDef slotDef;
+    public CellDef cellDef;
 
     override public void OnMouseUpAsButton()
     {
 
-        /*Prospector.S.CardClicked(this);*/
+        Poker.S.CardClicked(this);
 
         base.OnMouseUpAsButton();
     }

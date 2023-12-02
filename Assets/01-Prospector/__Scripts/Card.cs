@@ -88,6 +88,7 @@ namespace Proto
         virtual public void OnMouseUpAsButton()
         {
             print(name);
+
         }
     } // class Card
 

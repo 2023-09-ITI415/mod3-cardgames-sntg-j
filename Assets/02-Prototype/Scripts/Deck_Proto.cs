@@ -5,7 +5,6 @@ using Proto;
 
 public class Deck_Proto: MonoBehaviour
 {
-
     [Header("Set in Inspector")]
     //Suits
     public Sprite suitClub;
@@ -23,7 +22,6 @@ public class Deck_Proto: MonoBehaviour
 
     public bool startFaceUp = false;
 
-
     // Prefabs
     public GameObject prefabSprite;
     public GameObject prefabCard;
@@ -40,7 +38,6 @@ public class Deck_Proto: MonoBehaviour
     public List<CardDefinition> cardDefs;
     public Transform deckAnchor;
     public Dictionary<string, Sprite> dictSuits;
-
 
     // called by Prospector when it is ready
     public void InitDeck(string deckXMLText)
@@ -60,14 +57,10 @@ public class Deck_Proto: MonoBehaviour
             {"S", suitSpade}
         };
 
-
-
-
         ReadDeck(deckXMLText);
         MakeCards();
         MakeHolders();
     }
-
 
     // ReadDeck parses the XML file passed to it into Card Definitions
     public void ReadDeck(string deckXMLText)
@@ -155,20 +148,18 @@ public class Deck_Proto: MonoBehaviour
         return (null);
     }//GetCardDefinitionByRank
 
-
     public void MakeHolders()
     {
         holders = new List<Card>();
 
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i <= 25; i++)
         {
-            GameObject cgo = Instantiate(prefabCard) as GameObject;
+            GameObject cgo = Instantiate(prefabHolder) as GameObject;
             cgo.transform.parent = deckAnchor;
             Card card = cgo.GetComponent<Card>();
             card.rank = (int)'h';
 
             cgo.transform.localPosition = new Vector3(i % 13 * 3, i / 13 * 4, 0);
-
 
             holders.Add(card);
         }
@@ -200,7 +191,6 @@ public class Deck_Proto: MonoBehaviour
         Sprite tS = null;
         GameObject tGO = null;
         SpriteRenderer tSR = null;  // so tempted to make a D&D ref here...
-
 
         //
         //  This is effectively the MakeCard function
@@ -289,7 +279,6 @@ public class Deck_Proto: MonoBehaviour
                 card.pipGOs.Add(tGO);
             }
 
-
             //
             //This is AddFace 
             //
@@ -305,7 +294,6 @@ public class Deck_Proto: MonoBehaviour
                 tGO.transform.localPosition = Vector3.zero;  // slap it smack dab in the middle
                 tGO.name = "face";
             }
-
 
             //
             // This is AddBack
@@ -337,7 +325,6 @@ public class Deck_Proto: MonoBehaviour
         return (null);  // couldn't find the sprite (should never reach this line)
     }// getFace 
 
-
     /// <summary>
     /// Given a list of Card objects, randomly rearrange the objects into a random order
     /// </summary>
@@ -364,6 +351,4 @@ public class Deck_Proto: MonoBehaviour
         // Because oCards is a reference (ref) parameter, the original argument
         // that was passed in is changed as well.
     }
-
-
 } // Deck class

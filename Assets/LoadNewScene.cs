@@ -10,11 +10,4 @@ public class LoadNewScene : MonoBehaviour
         Debug.Log(sceneToLoad);
         SceneManager.LoadScene(sceneToLoad);
     }
-
-
-/*    public void LoadMod1Scene(string sceneToLoad)
-    {
-        SceneManager.LoadScene(sceneToLoad);
-    }
-*/
 }
