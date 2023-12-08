@@ -21,8 +21,8 @@ public class Poker : MonoBehaviour
     public float xOffset = 3;
     public float yOffset = -2.5f;
     public Vector3 layoutCenter;
-    public Vector2 fsPosMid = new Vector2(0.5f, 0.90f);
-    public Vector2 fsPosRun = new Vector2(0.5f, 0.75f);
+    public Vector2 fsPosMid = new Vector2(0.75f, 0.1f);
+    public Vector2 fsPosRun = new Vector2(0.9f, 0.1f);
     public Vector2 fsPosMid2 = new Vector2(0.4f, 1.0f);
     public Vector2 fsPosEnd = new Vector2(0.5f, 0.95f);
     public float reloadDelay = 2f;
@@ -39,6 +39,7 @@ public class Poker : MonoBehaviour
     public List<CardProspector2> tableau;
     public List<CardProspector2> discardPile;
     public Poker_FloatingScore fsRun;
+    bool royalStraight = false;
 
 
 
@@ -99,8 +100,9 @@ public class Poker : MonoBehaviour
         }
     }
 
-    public bool RowCheck(CardProspector2 nCard)
+    public int[] RowCheck(CardProspector2 nCard)
     {
+        int[] res = new int[3];
         int index = tableau.IndexOf(nCard);
 
         bool fullRow = true, fullCol = true;
@@ -121,30 +123,35 @@ public class Poker : MonoBehaviour
             if (fullRow == true)
             {
                 table[rowIndex, 0] = "1";
-                HandCheck(!fullRow, rowIndex, colIndex);
+                res[1] = rowIndex;
+                res[2] = colIndex;
             }
-
             if (fullCol == true)
             {
                 table[0, colIndex] = "1";
-                HandCheck(fullCol, rowIndex, colIndex);
+                res[0]++;
+                if (fullRow) res[0]++;
+                res[1] = rowIndex;
+                res[2] = colIndex;
+            }
+            else if (fullRow == false && fullCol == false) {
+                res[0] = -1;
             }
         }
-            return (fullCol || fullRow);
+        return (res);
     }
 
-    void HandCheck(bool colCheck, int rowIndex, int colIndex)
+    string HandCheck(bool colCheck, int rowIndex, int colIndex)
     {
         string[] type = { "Pair",       "Two-Pair",      "3-Kind", 
                           "Full-House", "4-Kind",        "Straight", 
                           "Flush",      "StraightFlush", "RoyalFlush" };
         string result = "";
 
-        bool royalStraight = false;
 
         bool isOnesuit = isAFlush(colCheck, rowIndex, colIndex);
         /*print("Is one suit: " + isOnesuit.ToString()); // In Working order*/
-        bool isStraight = isAStraight(colCheck, rowIndex, colIndex, royalStraight);
+        bool isStraight = isAStraight(colCheck, rowIndex, colIndex);
 
         if (isOnesuit && isStraight)
         {
@@ -156,7 +163,7 @@ public class Poker : MonoBehaviour
         else if (!(isOnesuit && isStraight)) { result = isAPair_Or_A_Kind(type, colCheck, rowIndex, colIndex); }
         else { result = "Nothing"; }
 
-        Poker_ScoreManager.EVENT(ePScoreEvent.rowComplete, result);
+        return result;
 
     }
     private string isAPair_Or_A_Kind(string[] type, bool colCheck, int rowIndex, int colIndex)
@@ -225,7 +232,7 @@ public class Poker : MonoBehaviour
         return true;
     }
 
-    private bool isAStraight(bool colCheck, int rowIndex, int colIndex, bool royalStraight)
+    private bool isAStraight(bool colCheck, int rowIndex, int colIndex)
     {
         string val = "", suit = "";
         int[] ranks = new int[5];
@@ -415,8 +422,31 @@ public class Poker : MonoBehaviour
                     MoveToDiscard(cd);
                     tableau.Insert(cdIndex, nCard);
                     holderGrid.Remove(cd);
-                    bool check = RowCheck(nCard);
-                    if (check) FloatingScoreHandler(ePScoreEvent.rowComplete);
+
+                    string res;
+                    int[] check = RowCheck(nCard);
+                    if (check[0] == 0)
+                    {
+                        res = HandCheck(false, check[1], check[2]);
+                        /*ScoreManager.EVENT(eScoreEvent.mine);*/
+                        Poker_ScoreManager.EVENT(ePScoreEvent.rowComplete, res);
+                        FloatingScoreHandler(ePScoreEvent.rowComplete);
+                    }
+                    else if (check[0] == 1)
+                    {
+                        res = HandCheck(true, check[1], check[2]);
+                        Poker_ScoreManager.EVENT(ePScoreEvent.rowComplete, res);
+                        FloatingScoreHandler(ePScoreEvent.rowComplete);
+                    }
+                    else if (check[0] == 2)
+                    {
+                        res = HandCheck(false, check[1], check[2]);
+                        Poker_ScoreManager.EVENT(ePScoreEvent.rowComplete, res);
+                        FloatingScoreHandler(ePScoreEvent.rowComplete);
+                        res = HandCheck(true, check[1], check[2]);
+                        Poker_ScoreManager.EVENT(ePScoreEvent.rowComplete, res);
+                        FloatingScoreHandler(ePScoreEvent.rowComplete);
+                    }
                 }
                 break;
         }
@@ -430,10 +460,7 @@ public class Poker : MonoBehaviour
             GameOver(true);
             return;
         }
-        else
-        {
-            return;
-        }
+        else { return; }
     }
     void GameOver(bool won)
     {
@@ -504,7 +531,7 @@ public class Poker : MonoBehaviour
                 Poker_FloatingScore fs;
                 // Move it from the mousePosition to fsPosRun
                 Vector2 p0 = Input.mousePosition;
-                p0.x /= Screen.width-100;
+                p0.x /= Screen.width;
                 p0.y /= Screen.height;
                 fsPts = new List<Vector2>();
                 fsPts.Add(p0);
@@ -516,12 +543,21 @@ public class Poker : MonoBehaviour
                 {
                     // Create points for the Bézier curve1
                     fsRun = fs;
-                    fsRun.reportFinishTo = null;
+                    fsRun.reportFinishTo = Poker_Scoring.S.gameObject;
                 }
                 else
                 {
-                    fs.reportFinishTo = Poker_Scoring.S.gameObject; ;
-
+                    fs.reportFinishTo = fsRun.gameObject;
+                    // Create points for the Bézier curve1
+                    fsPts = new List<Vector2>();
+                    fsPts.Add(fsPosRun);
+                    fsPts.Add(fsPosMid2);
+                    fsPts.Add(fsPosEnd);
+                    fsRun.reportFinishTo = Poker_Scoring.S.gameObject;
+                    fsRun.Init(fsPts, 0, 1);
+                    // Also adjust the fontSize
+                    fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
+                    fsRun = null; // Clear fsRun so it's created again
                 }
                 break;
         }

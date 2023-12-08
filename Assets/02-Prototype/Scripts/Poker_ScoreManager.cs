@@ -60,35 +60,40 @@ public class Poker_ScoreManager : MonoBehaviour
                 switch (handType)
                 {
                     case "Pair":
-                        chain = 2;
+                        scoreRun = 2;
                         break;
                     case "Two-Pair":
-                        chain = 5;
+                        scoreRun = 5;
                         break;
                     case "3-Kind":
-                        chain = 10;
+                        scoreRun = 10;
                         break;
                     case "Straight":
-                        chain = 15;
+                        scoreRun = 15;
                         break;
                     case "Flush":
-                        chain = 20;
+                        scoreRun = 20;
                         break;
                     case "Full-House":
-                        chain = 25;
+                        scoreRun = 25;
                         break;
                     case "4-Kind":
-                        chain = 50;
+                        scoreRun = 50;
                         break;
                     case "StraightFlush":
-                        chain = 75;
+                        scoreRun = 75;
                         break;
                     case "RoyalFlush":
-                        chain = 100;
+                        scoreRun = 100;
                         break;
-                    default : break;
+                    default :
+                        scoreRun = 0;
+                        break;
                 }
+                chain = 0;
+                chain +=  scoreRun;
                 score += chain;
+                /*scoreRun = 0;*/
                 break;
         }
         switch (evt)
